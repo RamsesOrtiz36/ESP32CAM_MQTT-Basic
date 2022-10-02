@@ -20,12 +20,12 @@
 #include <PubSubClient.h> //Biblioteca para conexion MQTT
 
 //Datos de WiFi
-const char* ssid = "INFINITUM9265_2.4";  // Aquí debes poner el nombre de tu red
-const char* password = "WU8Z114ZN0";  // Aquí debes poner la contraseña de tu red
+const char* ssid = "INFINITUM1885_2.4";  // Aquí debes poner el nombre de tu red
+const char* password = "7pxYYmS6EP";  // Aquí debes poner la contraseña de tu red
 
 //Datos del broker MQTT
-const char* mqtt_server = "192.168.1.70"; // 192.168.1.70 Si estas en una red local, coloca la IP asignada, en caso contrario, coloca la IP publica
-IPAddress server(192,168,1,70);
+const char* mqtt_server = "192.168.1.65"; // 192.168.1.70 Si estas en una red local, coloca la IP asignada, en caso contrario, coloca la IP publica
+IPAddress server(192,168,1,65);
 
 // Objetos
 WiFiClient espClient; // Este objeto maneja los datos de conexion WiFi
@@ -122,23 +122,23 @@ void callback(char* topic, byte* message, unsigned int length) {
 
   // Se comprueba que el mensaje se haya concatenado correctamente
   Serial.println();
-  Serial.print ("Mensaje concatenado en una sola variable:");
+  Serial.print ("Mensaje concatenado en una sola variable: ");
   Serial.println (messageTemp);
 
   // En esta parte puedes agregar las funciones que requieras para actuar segun lo necesites al recibir un mensaje MQTT
 
   // Ejemplo, en caso de recibir el mensaje true - false, se cambiará el estado del led soldado en la placa.
-  // El ESP323CAM está suscrito al tema esp/output
-  if (String(topic) == "codigoIoT/ejemplo/mqttin") {  // En caso de recibirse mensaje en el tema esp32/output
+  // El ESP323CAM está suscrito al tema codigoIoT/ejemplo/mqttin
+  if (String(topic) == "codigoIoT/ejemplo/mqttin") {  // En caso de recibirse mensaje en el tema codigoIoT/ejemplo/mqttin
     if(messageTemp == "true"){
       Serial.println("Led encendido");
       digitalWrite(flashLedPin, HIGH);
-    }// fin del if (String(topic) == "esp32/output")
+    }// fin del if (String(topic) == "codigoIoT/ejemplo/mqttin")
     else if(messageTemp == "false"){
       Serial.println("Led apagado");
       digitalWrite(flashLedPin, LOW);
     }// fin del else if(messageTemp == "false")
-  }// fin del if (String(topic) == "esp32/output")
+  }// fin del if (String(topic) == "codigoIoT/ejemplo/mqttin")
 }// fin del void callback
 
 // Función para reconectarse
